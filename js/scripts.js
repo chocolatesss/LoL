@@ -7,15 +7,16 @@ const requestOptions = {
   method: 'GET'
 };
 
-fetch(champMasteryApiUrl, requestOptions)
-  .then(response => response.json())
-  .then(res => {
-    console.log(res);
-  });
+// fetch(champMasteryApiUrl, requestOptions)
+//   .then(response => response.json())
+//   .then(res => {
+//     console.log(res);
+//   });
 
-const button = document.querySelector('#go');
+const form = document.querySelector('#go');
 
-button.addEventListener('click', event => {
+form.addEventListener('submit', event => {
   event.preventDefault();
   console.log('works');
+  console.log(event);
 });
