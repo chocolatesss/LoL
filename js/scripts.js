@@ -27,7 +27,7 @@ const requestOptions = {
 //   });
 
 // 2. Using the above `dqs` function, you can make this easier to read.
-const form = dqs('#go');
+const summonerIdForm = dqs('#go');
 // const form = document.querySelector('#go');
 
 form.addEventListener('submit', event => {
@@ -37,7 +37,8 @@ form.addEventListener('submit', event => {
 });
 
 // 3. change this to use dqs
-const apiKeyForm = document.querySelector('#apiKeyForm');
+//const apiKeyForm = document.querySelector('#apiKeyForm');
+const apiKeyForm = dqs('#apiKeyForm');
 
 apiKeyForm.addEventListener('submit', event => {
   event.preventDefault();
@@ -49,9 +50,9 @@ apiKeyForm.addEventListener('submit', event => {
   // 4.1. Change this to be `const` instead of `var`.
   // 4.2 This is just getting the element itself, google for how to get the value
   // of an input in js, it's so simple you may hate me for making you google it.
-  var apiKeyValue = document.getElementById('apiKey');
+  const apiKeyValue => document.getElementById('#apiKey').value;
   // 5. The second argument to `setItem` needs to be the variable not in quotations.
-  localStorage.setItem('apiKey', 'apiKeyValue');
+  localStorage.setItem('apiKey', apiKeyValue);
   // 6. Once the API key has been saved to local storage, hide that form and
   // display the other one.
 });
@@ -65,9 +66,9 @@ const apiKey = localStorage.getItem('apiKey');
 if (apiKey) {
   // hide api key form and show other form.
   apiKeyForm.style.display = 'none';
-  form.style.display = 'block';
+  summonerIdForm.style.display = 'block';
 } else {
   // do the reverse of the above
-  document.getElementById('apiKey').style.display = 'block';
-  document.getElementById('summonerId').style.display = 'none';
+  apiKeyForm.style.display = 'block';
+  summonerIdForm.style.display = 'none';
 }
