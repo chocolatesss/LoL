@@ -26,14 +26,20 @@ const apiKeyForm = document.querySelector('#apiKeyForm');
 apiKeyForm.addEventListener('submit', event => {
   event.preventDefault();
   // figure out how to get the api key value
-  localStorage.setItem('apiKey', 'value goes here');
+  var apiKeyValue = document.getElementById("apiKey");
+  localStorage.setItem('apiKey', 'apiKeyValue');
 });
 
 const apiKey = localStorage.getItem('apiKey');
 
 if (apiKey) {
   // hide api key form
+  document.getElementById("apiKey").style.display="none";
   // show summoner id form
+  document.getElementById("summonerId").style.display="block";
 } else {
   // do the reverse of the above
+  document.getElementById("apiKey").style.display="block";
+  document.getElementById("summonerId").style.display="none";
+  
 }
