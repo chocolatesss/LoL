@@ -1,32 +1,12 @@
 const dqs = query => document.querySelector(query);
 const dqsa = query => document.querySelectorAll(query);
-// I know you find ES6 a little confusing, which is completely understandable,
-// so here are the above functions declared in ES5 style.
-function dqsOld(query) {
-  return document.querySelector(query);
-}
-function dqsaOld(query) {
-  return document.querySelectorAll(query);
-}
 
 const apiUrl = `https://oc1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/`;
-const summonerId = 368280;
 
-const champMasteryApiUrl = `${apiUrl}${summonerId}`;
-
-const requestOptions = {
-  method: 'GET'
-};
-
-// fetch(champMasteryApiUrl, requestOptions)
-//   .then(response => response.json())
-//   .then(res => {
-//     console.log(res);
-//   });
-
-const summonerIdForm = dqs('#go');
+const summonerIdForm = dqs('#summonerIdForm');
+const apiKeyForm = dqs('#apiKeyForm');
 const apiKey = localStorage.getItem('apiKey');
-const summonerId = dqs('#go').value;
+
 // 3. Time to start working on this, I think we can break this down into a few steps
 //    - get the apiKey from local storage
 //    - get the summonerId from the input
@@ -39,11 +19,21 @@ const summonerId = dqs('#go').value;
 // that you can see the response data being put into the console.
 summonerIdForm.addEventListener('submit', event => {
   event.preventDefault();
-  console.log('works');
-  console.log(event);
+  const summonerId = dqs('#summonerId').value;
+  const champMasteryApiUrl = `${apiUrl}`; // summonerId needs to be put into this
+  // need to add the header to this, it's in one of the videos. You'll need to
+  // get the api key out of localStorage again because that value up the top
+  // is only checked once when the page loads, so if it has been set since then
+  // it doesn't automatically update.
+  const requestOptions = {
+    method: 'GET'
+  };
+  fetch(champMasteryApiUrl, requestOptions)
+    .then(response => response.json())
+    .then(res => {
+      console.log(res);
+    });
 });
-
-const apiKeyForm = dqs('#apiKeyForm');
 
 apiKeyForm.addEventListener('submit', event => {
   event.preventDefault();
@@ -52,8 +42,6 @@ apiKeyForm.addEventListener('submit', event => {
   // 1. Once the API key has been saved to local storage, hide that form and
   // display the other one.
 });
-
-const apiKey = localStorage.getItem('apiKey');
 
 // 2. based on #1 above, we can see there's a need to have this functionality
 // available in more than one area, which means it's probably a good candidate
