@@ -25,6 +25,8 @@ const requestOptions = {
 //   });
 
 const summonerIdForm = dqs('#go');
+const apiKey = localStorage.getItem('apiKey');
+const summonerId = dqs('#go').value;
 // 3. Time to start working on this, I think we can break this down into a few steps
 //    - get the apiKey from local storage
 //    - get the summonerId from the input
@@ -35,7 +37,7 @@ const summonerIdForm = dqs('#go');
 // Also, fair warning here, you have `const apiKey` below, so it may cause a problem
 // having that twice, but maybe not as well. See if you can get it working just to a point
 // that you can see the response data being put into the console.
-form.addEventListener('submit', event => {
+summonerIdForm.addEventListener('submit', event => {
   event.preventDefault();
   console.log('works');
   console.log(event);
