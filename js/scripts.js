@@ -7,6 +7,8 @@ const summonerIdForm = dqs('#summonerIdForm');
 const apiKeyForm = dqs('#apiKeyForm');
 const apiKey = localStorage.getItem('apiKey');
 const summonerID = 368280;
+// https://s3-us-west-1.amazonaws.com/riot-developer-portal/seed-data/matches1.json
+// https://s3-us-west-1.amazonaws.com/riot-developer-portal/seed-data/matches10.json
 
 // 3. Time to start working on this, I think we can break this down into a few steps
 //    - get the apiKey from local storage
@@ -20,15 +22,14 @@ const summonerID = 368280;
 // that you can see the response data being put into the console.
 summonerIdForm.addEventListener('submit', event => {
   event.preventDefault();
+
   const summonerId = dqs('#summonerId').value;
-  const champMasteryApiUrl = `${apiUrl}${summonerId}`; // summonerId needs to be put into this
-  // need to add the header to this, it's in one of the videos. You'll need to
-  // get the api key out of localStorage again because that value up the top
-  // is only checked once when the page loads, so if it has been set since then
-  // it doesn't automatically update.
+  const champMasteryApiUrl = `${apiUrl}${summonerId}`;
+  const apiKey = localStorage.getItem('apiKey');
+
   const requestOptions = {
-    method: 'GET'
-	headers: {"Summoner-Id": "368280"}
+    method: 'GET',
+    headers: { 'X-Riot-Token': apiKey }
   };
   fetch(champMasteryApiUrl, requestOptions)
     .then(response => response.json())
@@ -42,14 +43,12 @@ apiKeyForm.addEventListener('submit', event => {
   const apiKeyValue = dqs('#apiKey').value;
   localStorage.setItem('apiKey', apiKeyValue);
   formToggle();
-  // 1. Once the API key has been saved to local storage, hide that form and
-  // display the other one.
 });
 
-// 2. based on #1 above, we can see there's a need to have this functionality
-// available in more than one area, which means it's probably a good candidate
-// for putting that into an actual function. I've done this below, you can call
-// this function wherever just as `formToggle()`.
+/**
+ * Checks for the presence of an API Key and, if found, will hide the API Key
+ * form and show the Summoner ID form.
+ */
 function formToggle() {
   if (apiKey) {
     // hide api key form and show other form.
