@@ -6,6 +6,7 @@ const apiUrl = `https://oc1.api.riotgames.com/lol/champion-mastery/v3/champion-m
 const summonerIdForm = dqs('#summonerIdForm');
 const apiKeyForm = dqs('#apiKeyForm');
 const apiKey = localStorage.getItem('apiKey');
+const summonerID = 368280;
 
 // 3. Time to start working on this, I think we can break this down into a few steps
 //    - get the apiKey from local storage
@@ -20,13 +21,14 @@ const apiKey = localStorage.getItem('apiKey');
 summonerIdForm.addEventListener('submit', event => {
   event.preventDefault();
   const summonerId = dqs('#summonerId').value;
-  const champMasteryApiUrl = `${apiUrl}`; // summonerId needs to be put into this
+  const champMasteryApiUrl = `${apiUrl}${summonerId}`; // summonerId needs to be put into this
   // need to add the header to this, it's in one of the videos. You'll need to
   // get the api key out of localStorage again because that value up the top
   // is only checked once when the page loads, so if it has been set since then
   // it doesn't automatically update.
   const requestOptions = {
     method: 'GET'
+	headers: {"Summoner-Id": "368280"}
   };
   fetch(champMasteryApiUrl, requestOptions)
     .then(response => response.json())
@@ -39,6 +41,7 @@ apiKeyForm.addEventListener('submit', event => {
   event.preventDefault();
   const apiKeyValue = dqs('#apiKey').value;
   localStorage.setItem('apiKey', apiKeyValue);
+  formToggle();
   // 1. Once the API key has been saved to local storage, hide that form and
   // display the other one.
 });
