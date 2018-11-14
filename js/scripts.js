@@ -1,7 +1,7 @@
 const dqs = query => document.querySelector(query);
 const dqsa = query => document.querySelectorAll(query);
 
-/**
+/*
  * function dqsOld(query) 
  * {
  * return document.querySelector(query);
