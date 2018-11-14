@@ -1,6 +1,18 @@
 const dqs = query => document.querySelector(query);
 const dqsa = query => document.querySelectorAll(query);
 
+/**
+ * function dqsOld(query) 
+ * {
+ * return document.querySelector(query);
+ * }
+
+   function dqsaOld(query) 
+   {
+     return document.querySelectorAll(query);
+   }
+ */
+
 const apiUrl = `https://oc1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/`;
 
 const summonerIdForm = dqs('#summonerIdForm');
